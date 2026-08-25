@@ -1,0 +1,446 @@
+/home/ubunutu/assignment-1-scaryhound
+├── assignment-autotest
+│   ├── auto_generate.sh
+│   ├── CMakeLists-parent-example.txt
+│   ├── CMakeLists.txt
+│   ├── docker
+│   │   ├── options
+│   │   └── run-test.sh
+│   ├── examples
+│   │   └── autotest-validate
+│   │       ├── autotest-validate
+│   │       ├── autotest-validate.c
+│   │       ├── autotest-validate.h
+│   │       ├── autotest-validate-main.c
+│   │       └── Makefile
+│   ├── full-test.sh
+│   ├── LICENSE
+│   ├── README.md
+│   ├── test
+│   │   ├── assignment1
+│   │   │   ├── assignment-1-test-iteration.sh
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── assignment-timeout
+│   │   │   ├── script-helpers -> ../shared/script-helpers
+│   │   │   ├── Test_assignment_validate.c
+│   │   │   ├── Test_assignment_validate_Runner.c
+│   │   │   ├── Test_hello.c
+│   │   │   ├── Test_hello_Runner.c
+│   │   │   └── username-from-conf-file.h
+│   │   ├── assignment2
+│   │   │   ├── assignment-1-test-iteration.sh
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── assignment-timeout
+│   │   │   └── script-helpers -> ../shared/script-helpers
+│   │   ├── assignment3
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── file_write_commands.h
+│   │   │   ├── script-helpers -> ../shared/script-helpers
+│   │   │   ├── Test_systemcalls.c
+│   │   │   └── Test_systemcalls_Runner.c
+│   │   ├── assignment4
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── Test_threading.c
+│   │   │   └── Test_threading_Runner.c
+│   │   ├── assignment4-buildroot
+│   │   │   ├── assignment-1-test.sh
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── buildroot-common-build.sh -> ../shared/buildroot-common-build.sh
+│   │   │   └── script-helpers -> ../shared/script-helpers
+│   │   ├── assignment5
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── long_string.txt
+│   │   │   ├── script-helpers -> ../assignment4-buildroot/script-helpers
+│   │   │   └── sockettest.sh
+│   │   ├── assignment5-buildroot
+│   │   │   ├── assignment-5-build.sh
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── buildroot-common-build.sh -> ../assignment4-buildroot/buildroot-common-build.sh
+│   │   │   ├── long_string.txt -> ../assignment5/long_string.txt
+│   │   │   ├── script-helpers -> ../assignment4-buildroot/script-helpers
+│   │   │   └── sockettest.sh -> ../assignment5/sockettest.sh
+│   │   ├── assignment6
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── long_string.txt
+│   │   │   ├── script-helpers -> ../assignment4-buildroot/script-helpers
+│   │   │   └── sockettest.sh
+│   │   ├── assignment6-yocto
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── long_string.txt -> ../assignment6/long_string.txt
+│   │   │   ├── script-helpers -> ../assignment4-buildroot/script-helpers
+│   │   │   ├── sockettest.sh -> ../assignment6/sockettest.sh
+│   │   │   └── yocto-common-build.sh -> ../shared/yocto-common-build.sh
+│   │   ├── assignment7
+│   │   │   ├── assignment-test.sh
+│   │   │   └── Test_circular_buffer.c
+│   │   ├── assignment7-buildroot
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── buildroot-common-build.sh -> ../assignment4-buildroot/buildroot-common-build.sh
+│   │   │   └── script-helpers -> ../assignment4-buildroot/script-helpers
+│   │   ├── assignment7-yocto
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── script-helpers -> ../assignment4-buildroot/script-helpers
+│   │   │   └── yocto-common-build.sh -> ../shared/yocto-common-build.sh
+│   │   ├── assignment8
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── drivertest.sh
+│   │   │   └── sockettest.sh -> ../assignment5/sockettest.sh
+│   │   ├── assignment8-buildroot
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── buildroot-common-build.sh -> ../assignment4-buildroot/buildroot-common-build.sh
+│   │   │   ├── drivertest.sh -> ../assignment8/drivertest.sh
+│   │   │   ├── script-helpers -> ../assignment4-buildroot/script-helpers
+│   │   │   └── sockettest.sh -> ../assignment8/sockettest.sh
+│   │   ├── assignment8-yocto
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── drivertest.sh -> ../assignment8/drivertest.sh
+│   │   │   ├── script-helpers -> ../assignment4-buildroot/script-helpers
+│   │   │   ├── sockettest.sh -> ../assignment8/sockettest.sh
+│   │   │   └── yocto-common-build.sh -> ../shared/yocto-common-build.sh
+│   │   ├── assignment9
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── drivertest.sh
+│   │   │   └── sockettest.sh
+│   │   ├── assignment9-buildroot
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── buildroot-common-build.sh -> ../shared/buildroot-common-build.sh
+│   │   │   ├── drivertest.sh -> ../assignment9/drivertest.sh
+│   │   │   ├── script-helpers -> ../shared/script-helpers
+│   │   │   └── sockettest.sh -> ../assignment9/sockettest.sh
+│   │   ├── assignment9-yocto
+│   │   │   ├── assignment-test.sh
+│   │   │   ├── drivertest.sh -> ../assignment9/drivertest.sh
+│   │   │   ├── script-helpers -> ../shared/script-helpers
+│   │   │   ├── sockettest.sh -> ../assignment9/sockettest.sh
+│   │   │   └── yocto-common-build.sh -> ../shared/yocto-common-build.sh
+│   │   ├── shared
+│   │   │   ├── buildroot-common-build.sh
+│   │   │   ├── script-helpers
+│   │   │   └── yocto-common-build.sh
+│   │   └── unity_runner.c
+│   ├── test-basedir.sh
+│   ├── test-unit.sh
+│   └── Unity
+│       ├── auto
+│       │   ├── colour_prompt.rb
+│       │   ├── colour_reporter.rb
+│       │   ├── generate_config.yml
+│       │   ├── generate_module.rb
+│       │   ├── generate_test_runner.rb
+│       │   ├── parse_output.rb
+│       │   ├── run_test.erb
+│       │   ├── stylize_as_junit.rb
+│       │   ├── test_file_filter.rb
+│       │   ├── type_sanitizer.rb
+│       │   ├── unity_test_summary.py
+│       │   ├── unity_test_summary.rb
+│       │   └── unity_to_junit.py
+│       ├── CMakeLists.txt
+│       ├── docs
+│       │   ├── ThrowTheSwitchCodingStandard.md
+│       │   ├── UnityAssertionsCheatSheetSuitableforPrintingandPossiblyFraming.pdf
+│       │   ├── UnityAssertionsReference.md
+│       │   ├── UnityConfigurationGuide.md
+│       │   ├── UnityGettingStartedGuide.md
+│       │   └── UnityHelperScriptsGuide.md
+│       ├── examples
+│       │   ├── example_1
+│       │   │   ├── makefile
+│       │   │   ├── readme.txt
+│       │   │   ├── src
+│       │   │   │   ├── ProductionCode2.c
+│       │   │   │   ├── ProductionCode2.h
+│       │   │   │   ├── ProductionCode.c
+│       │   │   │   └── ProductionCode.h
+│       │   │   └── test
+│       │   │       ├── TestProductionCode2.c
+│       │   │       ├── TestProductionCode.c
+│       │   │       └── test_runners
+│       │   │           ├── TestProductionCode2_Runner.c
+│       │   │           └── TestProductionCode_Runner.c
+│       │   ├── example_2
+│       │   │   ├── makefile
+│       │   │   ├── readme.txt
+│       │   │   ├── src
+│       │   │   │   ├── ProductionCode2.c
+│       │   │   │   ├── ProductionCode2.h
+│       │   │   │   ├── ProductionCode.c
+│       │   │   │   └── ProductionCode.h
+│       │   │   └── test
+│       │   │       ├── TestProductionCode2.c
+│       │   │       ├── TestProductionCode.c
+│       │   │       └── test_runners
+│       │   │           ├── all_tests.c
+│       │   │           ├── TestProductionCode2_Runner.c
+│       │   │           └── TestProductionCode_Runner.c
+│       │   ├── example_3
+│       │   │   ├── helper
+│       │   │   │   ├── UnityHelper.c
+│       │   │   │   └── UnityHelper.h
+│       │   │   ├── rakefile_helper.rb
+│       │   │   ├── rakefile.rb
+│       │   │   ├── readme.txt
+│       │   │   ├── src
+│       │   │   │   ├── ProductionCode2.c
+│       │   │   │   ├── ProductionCode2.h
+│       │   │   │   ├── ProductionCode.c
+│       │   │   │   └── ProductionCode.h
+│       │   │   ├── target_gcc_32.yml
+│       │   │   └── test
+│       │   │       ├── TestProductionCode2.c
+│       │   │       └── TestProductionCode.c
+│       │   ├── example_4
+│       │   │   ├── meson.build
+│       │   │   ├── readme.txt
+│       │   │   ├── src
+│       │   │   │   ├── meson.build
+│       │   │   │   ├── ProductionCode2.c
+│       │   │   │   ├── ProductionCode2.h
+│       │   │   │   ├── ProductionCode.c
+│       │   │   │   └── ProductionCode.h
+│       │   │   ├── subprojects
+│       │   │   │   └── unity.wrap
+│       │   │   └── test
+│       │   │       ├── meson.build
+│       │   │       ├── TestProductionCode2.c
+│       │   │       ├── TestProductionCode.c
+│       │   │       └── test_runners
+│       │   │           ├── meson.build
+│       │   │           ├── TestProductionCode2_Runner.c
+│       │   │           └── TestProductionCode_Runner.c
+│       │   └── unity_config.h
+│       ├── extras
+│       │   ├── eclipse
+│       │   │   └── error_parsers.txt
+│       │   ├── fixture
+│       │   │   ├── readme.md
+│       │   │   ├── src
+│       │   │   │   ├── unity_fixture.c
+│       │   │   │   ├── unity_fixture.h
+│       │   │   │   └── unity_fixture_internals.h
+│       │   │   └── test
+│       │   │       ├── main
+│       │   │       │   └── AllTests.c
+│       │   │       ├── Makefile
+│       │   │       ├── template_fixture_tests.c
+│       │   │       ├── unity_fixture_Test.c
+│       │   │       └── unity_fixture_TestRunner.c
+│       │   └── memory
+│       │       ├── readme.md
+│       │       ├── src
+│       │       │   ├── unity_memory.c
+│       │       │   └── unity_memory.h
+│       │       └── test
+│       │           ├── Makefile
+│       │           ├── unity_memory_Test.c
+│       │           ├── unity_memory_TestRunner.c
+│       │           ├── unity_output_Spy.c
+│       │           └── unity_output_Spy.h
+│       ├── LICENSE.txt
+│       ├── meson.build
+│       ├── README.md
+│       ├── src
+│       │   ├── CMakeLists.txt
+│       │   ├── meson.build
+│       │   ├── unity.c
+│       │   ├── unity.h
+│       │   └── unity_internals.h
+│       └── test
+│           ├── expectdata
+│           │   ├── testsample_cmd.c
+│           │   ├── testsample_def.c
+│           │   ├── testsample_head1.c
+│           │   ├── testsample_head1.h
+│           │   ├── testsample_mock_cmd.c
+│           │   ├── testsample_mock_def.c
+│           │   ├── testsample_mock_head1.c
+│           │   ├── testsample_mock_head1.h
+│           │   ├── testsample_mock_new1.c
+│           │   ├── testsample_mock_new2.c
+│           │   ├── testsample_mock_param.c
+│           │   ├── testsample_mock_run1.c
+│           │   ├── testsample_mock_run2.c
+│           │   ├── testsample_mock_yaml.c
+│           │   ├── testsample_new1.c
+│           │   ├── testsample_new2.c
+│           │   ├── testsample_param.c
+│           │   ├── testsample_run1.c
+│           │   ├── testsample_run2.c
+│           │   └── testsample_yaml.c
+│           ├── Makefile
+│           ├── rakefile
+│           ├── rakefile_helper.rb
+│           ├── spec
+│           │   └── generate_module_existing_file_spec.rb
+│           ├── targets
+│           │   ├── ansi.yml
+│           │   ├── clang_file.yml
+│           │   ├── clang_strict.yml
+│           │   ├── gcc_32.yml
+│           │   ├── gcc_64.yml
+│           │   ├── gcc_auto_limits.yml
+│           │   ├── gcc_auto_stdint.yml
+│           │   ├── gcc_manual_math.yml
+│           │   ├── hitech_picc18.yml
+│           │   ├── iar_armcortex_LM3S9B92_v5_4.yml
+│           │   ├── iar_arm_v4.yml
+│           │   ├── iar_arm_v5_3.yml
+│           │   ├── iar_arm_v5.yml
+│           │   ├── iar_cortexm3_v5.yml
+│           │   ├── iar_msp430.yml
+│           │   └── iar_sh2a_v6.yml
+│           ├── testdata
+│           │   ├── CException.h
+│           │   ├── cmock.h
+│           │   ├── Defs.h
+│           │   ├── mockMock.h
+│           │   ├── testRunnerGenerator.c
+│           │   ├── testRunnerGeneratorSmall.c
+│           │   └── testRunnerGeneratorWithMocks.c
+│           └── tests
+│               ├── self_assessment_utils.h
+│               ├── test_generate_test_runner.rb
+│               ├── test_unity_arrays.c
+│               ├── test_unity_core.c
+│               ├── test_unity_doubles.c
+│               ├── test_unity_floats.c
+│               ├── test_unity_integers_64.c
+│               ├── test_unity_integers.c
+│               ├── test_unity_memory.c
+│               ├── test_unity_parameterized.c
+│               └── test_unity_strings.c
+├── assignments
+│   └── assignment2
+│       ├── cross-compile.txt
+│       └── fileresult.txt
+├── build
+│   ├── assignment-autotest
+│   │   ├── assignment-autotest
+│   │   ├── CMakeFiles
+│   │   │   ├── assignment-autotest.dir
+│   │   │   │   ├── __
+│   │   │   │   │   ├── examples
+│   │   │   │   │   │   ├── autotest-validate
+│   │   │   │   │   │   │   ├── autotest-validate.c.o
+│   │   │   │   │   │   │   └── autotest-validate.c.o.d
+│   │   │   │   │   │   ├── systemcalls
+│   │   │   │   │   │   │   ├── systemcalls.c.o
+│   │   │   │   │   │   │   └── systemcalls.c.o.d
+│   │   │   │   │   │   └── threading
+│   │   │   │   │   │       ├── threading.c.o
+│   │   │   │   │   │       └── threading.c.o.d
+│   │   │   │   │   └── student-test
+│   │   │   │   │       └── assignment1
+│   │   │   │   │           ├── Test_validate_username.c.o
+│   │   │   │   │           ├── Test_validate_username.c.o.d
+│   │   │   │   │           ├── Test_validate_username_Runner.c.o
+│   │   │   │   │           └── Test_validate_username_Runner.c.o.d
+│   │   │   │   ├── build.make
+│   │   │   │   ├── cmake_clean.cmake
+│   │   │   │   ├── compiler_depend.make
+│   │   │   │   ├── compiler_depend.ts
+│   │   │   │   ├── DependInfo.cmake
+│   │   │   │   ├── depend.make
+│   │   │   │   ├── flags.make
+│   │   │   │   ├── link.txt
+│   │   │   │   ├── progress.make
+│   │   │   │   └── test
+│   │   │   │       ├── assignment1
+│   │   │   │       │   ├── Test_assignment_validate.c.o
+│   │   │   │       │   ├── Test_assignment_validate.c.o.d
+│   │   │   │       │   ├── Test_assignment_validate_Runner.c.o
+│   │   │   │       │   ├── Test_assignment_validate_Runner.c.o.d
+│   │   │   │       │   ├── Test_hello.c.o
+│   │   │   │       │   ├── Test_hello.c.o.d
+│   │   │   │       │   ├── Test_hello_Runner.c.o
+│   │   │   │       │   └── Test_hello_Runner.c.o.d
+│   │   │   │       ├── assignment3
+│   │   │   │       │   ├── Test_systemcalls.c.o
+│   │   │   │       │   ├── Test_systemcalls.c.o.d
+│   │   │   │       │   ├── Test_systemcalls_Runner.c.o
+│   │   │   │       │   └── Test_systemcalls_Runner.c.o.d
+│   │   │   │       ├── assignment4
+│   │   │   │       │   ├── Test_threading.c.o
+│   │   │   │       │   ├── Test_threading.c.o.d
+│   │   │   │       │   ├── Test_threading_Runner.c.o
+│   │   │   │       │   └── Test_threading_Runner.c.o.d
+│   │   │   │       ├── unity_runner.c.o
+│   │   │   │       └── unity_runner.c.o.d
+│   │   │   ├── CMakeDirectoryInformation.cmake
+│   │   │   └── progress.marks
+│   │   ├── cmake_install.cmake
+│   │   ├── Makefile
+│   │   └── Unity
+│   │       ├── CMakeFiles
+│   │       │   ├── CMakeDirectoryInformation.cmake
+│   │       │   ├── Export
+│   │       │   │   └── share
+│   │       │   │       └── unityConfig
+│   │       │   │           └── cmake
+│   │       │   │               ├── unityConfig.cmake
+│   │       │   │               └── unityConfig-noconfig.cmake
+│   │       │   └── progress.marks
+│   │       ├── cmake_install.cmake
+│   │       ├── Makefile
+│   │       ├── src
+│   │       │   ├── CMakeFiles
+│   │       │   │   ├── CMakeDirectoryInformation.cmake
+│   │       │   │   ├── progress.marks
+│   │       │   │   └── unity.dir
+│   │       │   │       ├── build.make
+│   │       │   │       ├── cmake_clean.cmake
+│   │       │   │       ├── cmake_clean_target.cmake
+│   │       │   │       ├── compiler_depend.make
+│   │       │   │       ├── compiler_depend.ts
+│   │       │   │       ├── DependInfo.cmake
+│   │       │   │       ├── depend.make
+│   │       │   │       ├── flags.make
+│   │       │   │       ├── link.txt
+│   │       │   │       ├── progress.make
+│   │       │   │       ├── unity.c.o
+│   │       │   │       └── unity.c.o.d
+│   │       │   ├── cmake_install.cmake
+│   │       │   ├── libunity.a
+│   │       │   └── Makefile
+│   │       └── unityConfig.cmake
+│   ├── CMakeCache.txt
+│   ├── CMakeFiles
+│   │   ├── 3.22.1
+│   │   │   ├── CMakeCCompiler.cmake
+│   │   │   ├── CMakeCXXCompiler.cmake
+│   │   │   ├── CMakeDetermineCompilerABI_C.bin
+│   │   │   ├── CMakeDetermineCompilerABI_CXX.bin
+│   │   │   ├── CMakeSystem.cmake
+│   │   │   ├── CompilerIdC
+│   │   │   │   ├── a.out
+│   │   │   │   ├── CMakeCCompilerId.c
+│   │   │   │   └── tmp
+│   │   │   └── CompilerIdCXX
+│   │   │       ├── a.out
+│   │   │       ├── CMakeCXXCompilerId.cpp
+│   │   │       └── tmp
+│   │   ├── cmake.check_cache
+│   │   ├── CMakeDirectoryInformation.cmake
+│   │   ├── CMakeOutput.log
+│   │   ├── CMakeRuleHashes.txt
+│   │   ├── CMakeTmp
+│   │   ├── Makefile2
+│   │   ├── Makefile.cmake
+│   │   ├── progress.marks
+│   │   └── TargetDirectories.txt
+│   ├── cmake_install.cmake
+│   └── Makefile
+├── CMakeLists.txt
+├── conf
+│   ├── assignment.txt
+│   └── username.txt
+├── examples
+│   ├── autotest-validate
+│   │   ├── autotest-validate.c
+│   │   ├── autotest-validate.h
+│   │   ├── autotest-validate-main.c
+│   │   └── Makefile
+│   ├── systemcalls
+│   │   ├── systemcalls.c
+│   │   └── systemcalls.h
+│ 
