@@ -1,1 +1,2 @@
-source "/home/ubunutu/assignment-4-scaryhound/base_external/package/aesd-assignments/Config.in"
+
+source "$BR2_EXTERNAL_project_base_PATH/package/aesd-assignments/Config.in"
