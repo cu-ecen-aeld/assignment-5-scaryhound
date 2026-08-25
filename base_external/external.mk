@@ -1,1 +1,1 @@
-include /home/ubunutu/assignment-4-scaryhound/base_external/package/aesd-assignments/aesd-assignments.mk
+include $(sort $(wildcard $(BR2_EXTERNAL_PROJECT_BASE_PATH)/package/*/*.mk))
