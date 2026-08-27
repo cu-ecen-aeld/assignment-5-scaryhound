@@ -17,10 +17,12 @@ jobs:
       - uses: webfactory/ssh-agent@v0.5.3
         with:
             ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Inject PIP_CONSTRAINT to fix QEMU build
+      - name: Patch QEMU mkvenv script in Buildroot
         run: |
-          echo "distlib<0.3.9" > /tmp/constraint.txt
-          echo "PIP_CONSTRAINT=/tmp/constraint.txt" >> $GITHUB_ENV
+          python3 -c '
+          with open("buildroot/package/qemu/qemu.mk", "a") as f:
+              f.write("\ndefine HOST_QEMU_PATCH_MKVENV\n\tsed -i \"s/maker = distlib.scripts.ScriptMaker(None, bin_path)/return/g\" $(@D)/python/scripts/mkvenv.py\nendef\nHOST_QEMU_POST_EXTRACT_HOOKS += HOST_QEMU_PATCH_MKVENV\n")
+          '
       - name: Run full test
         env:
             GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
