@@ -17,11 +17,6 @@ jobs:
           - uses: webfactory/ssh-agent@v0.5.3
             with:
                 ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          - name: Pre-build host-python-distlib (workaround for pip 25.2 breaking QEMU's mkvenv.py)
-            run: |
-              cd buildroot
-              make BR2_EXTERNAL=../base_external aesd_qemu_defconfig
-              make host-python-distlib
           - name: Run full test
             env:
               GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
