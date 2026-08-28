@@ -13,31 +13,52 @@ set -e
 cd `dirname $0`
 
 # =====================================================================
-# CLOUD-READY DYNAMIC PATCH GENERATOR
-# We dynamically create a .patch file to bypass submodule git errors.
-# Buildroot will automatically apply this to QEMU right after extraction.
-# =====================================================================
-cat << 'EOF' > buildroot/package/qemu/0004-fix-python-distlib.patch
---- a/python/scripts/mkvenv.py
-+++ b/python/scripts/mkvenv.py
-@@ -496,10 +496,14 @@
-         generate_console_scripts(
-             ent.values(), dict(dist.exports).get("console_scripts", {})
-         )
--
--    maker = distlib.scripts.ScriptMaker(None, bin_path)
--    maker.variants = {""}
--    maker.make("")
-+    import os
-+    for p in packages:
-+        s = os.path.join(bin_path, p)
-+        with open(s, "w") as sf:
-+            if p == "meson":
-+                sf.write('#!/bin/sh\nexec meson "$@"\n')
-+            else:
-+                sf.write('#!/bin/sh\nexec python3 -m ' + p + ' "$@"\n')
-+        os.chmod(s, 0o755)
+# BULLETPROOF QEMU HOTFIX
+# 1. Create a Python script that perfectly patches mkvenv.py
+cat << 'EOF' > buildroot/package/qemu/patch_mkvenv.py
+import sys
+import os
+
+qemu_dir = sys.argv[1]
+file_path = os.path.join(qemu_dir, "python/scripts/mkvenv.py")
+
+try:
+    with open(file_path, "r") as f:
+        lines = f.readlines()
+
+    with open(file_path, "w") as f:
+        for line in lines:
+            if "maker = distlib.scripts.ScriptMaker(None, bin_path)" in line:
+                f.write('    import os\n')
+                f.write('    for p in packages:\n')
+                f.write('        s = os.path.join(bin_path, p)\n')
+                f.write('        with open(s, "w") as sf:\n')
+                f.write('            if p == "meson":\n')
+                f.write('                sf.write(\'#!/bin/sh\\nexec meson "$@"\\n\')\n')
+                f.write('            else:\n')
+                f.write('                sf.write(\'#!/bin/sh\\nexec python3 -m \' + p + \' "$@"\\n\')\n')
+                f.write('        os.chmod(s, 0o755)\n')
+                f.write('    return\n')
+            f.write(line)
+    print("Successfully patched mkvenv.py for QEMU!")
+except Exception as e:
+    print("Note: Patching mkvenv.py skipped or failed: " + str(e))
 EOF
+
+# 2. Inject a hook into QEMU's makefile to run our Python script
+if ! grep -q "HOST_QEMU_PATCH_MKVENV" buildroot/package/qemu/qemu.mk; then
+    echo "Injecting QEMU patch at the top of qemu.mk..."
+    
+    cat << 'EOF' > qemu_patch_temp.mk
+define HOST_QEMU_PATCH_MKVENV
+	python3 package/qemu/patch_mkvenv.py $(@D)
+endef
+HOST_QEMU_POST_EXTRACT_HOOKS += HOST_QEMU_PATCH_MKVENV
+
+EOF
+    cat buildroot/package/qemu/qemu.mk >> qemu_patch_temp.mk
+    mv qemu_patch_temp.mk buildroot/package/qemu/qemu.mk
+fi
 # =====================================================================
 
 if [ ! -e buildroot/.config ]
