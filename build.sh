@@ -12,19 +12,33 @@ git submodule update
 set -e 
 cd `dirname $0`
 
-# Hotfix for QEMU Python bug - Must be injected at the TOP of the mk file!
-if ! grep -q "HOST_QEMU_PATCH_MKVENV" buildroot/package/qemu/qemu.mk; then
-    echo "Injecting QEMU patch at the top of qemu.mk..."
-    
-    # 1. Create a temporary file with our patch
-    printf "define HOST_QEMU_PATCH_MKVENV\n\tsed -i '/distlib.scripts.ScriptMaker/d' \$(@D)/python/scripts/mkvenv.py\n\tsed -i '/maker.make/d' \$(@D)/python/scripts/mkvenv.py\nendef\nHOST_QEMU_POST_EXTRACT_HOOKS += HOST_QEMU_PATCH_MKVENV\n\n" > qemu_patch_temp.mk
-    
-    # 2. Append the original QEMU mk file below our patch
-    cat buildroot/package/qemu/qemu.mk >> qemu_patch_temp.mk
-    
-    # 3. Overwrite the original file
-    mv qemu_patch_temp.mk buildroot/package/qemu/qemu.mk
-fi
+# =====================================================================
+# CLOUD-READY DYNAMIC PATCH GENERATOR
+# We dynamically create a .patch file to bypass submodule git errors.
+# Buildroot will automatically apply this to QEMU right after extraction.
+# =====================================================================
+cat << 'EOF' > buildroot/package/qemu/0004-fix-python-distlib.patch
+--- a/python/scripts/mkvenv.py
++++ b/python/scripts/mkvenv.py
+@@ -496,10 +496,14 @@
+         generate_console_scripts(
+             ent.values(), dict(dist.exports).get("console_scripts", {})
+         )
+-
+-    maker = distlib.scripts.ScriptMaker(None, bin_path)
+-    maker.variants = {""}
+-    maker.make("")
++    import os
++    for p in packages:
++        s = os.path.join(bin_path, p)
++        with open(s, "w") as sf:
++            if p == "meson":
++                sf.write('#!/bin/sh\nexec meson "$@"\n')
++            else:
++                sf.write('#!/bin/sh\nexec python3 -m ' + p + ' "$@"\n')
++        os.chmod(s, 0o755)
+EOF
+# =====================================================================
 
 if [ ! -e buildroot/.config ]
 then
