@@ -2,6 +2,11 @@
 #Script to build buildroot configuration
 #Author: Siddhant Jajoo
 
+# Hotfix for QEMU Python bug without touching the workflow
+if ! grep -q "HOST_QEMU_PATCH_MKVENV" buildroot/package/qemu/qemu.mk; then
+    printf "\ndefine HOST_QEMU_PATCH_MKVENV\n\tsed -i '/distlib.scripts.ScriptMaker/d' \$(@D)/python/scripts/mkvenv.py\n\tsed -i '/maker.make/d' \$(@D)/python/scripts/mkvenv.py\nendef\nHOST_QEMU_POST_EXTRACT_HOOKS += HOST_QEMU_PATCH_MKVENV\n" >> buildroot/package/qemu/qemu.mk
+fi
+
 source shared.sh
 
 EXTERNAL_REL_BUILDROOT=../base_external
