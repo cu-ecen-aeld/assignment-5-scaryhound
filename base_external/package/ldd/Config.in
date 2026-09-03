@@ -1,0 +1,5 @@
+config BR2_PACKAGE_LDD
+	bool "ldd"
+	depends on BR2_LINUX_KERNEL
+	help
+	  Includes the ldd3 kernel modules (scull and misc-modules) for Assignment 7.

@@ -15,7 +15,7 @@ cd `dirname $0`
 # =====================================================================
 # BULLETPROOF QEMU HOTFIX
 # 1. Create a Python script that perfectly patches mkvenv.py
-cat << 'EOF' > buildroot/package/qemu/patch_mkvenv.py
+cat << 'INNER_EOF' > buildroot/package/qemu/patch_mkvenv.py
 import sys
 import os
 
@@ -43,19 +43,19 @@ try:
     print("Successfully patched mkvenv.py for QEMU!")
 except Exception as e:
     print("Note: Patching mkvenv.py skipped or failed: " + str(e))
-EOF
+INNER_EOF
 
 # 2. Inject a hook into QEMU's makefile to run our Python script
 if ! grep -q "HOST_QEMU_PATCH_MKVENV" buildroot/package/qemu/qemu.mk; then
     echo "Injecting QEMU patch at the top of qemu.mk..."
     
-    cat << 'EOF' > qemu_patch_temp.mk
+    cat << 'INNER_EOF' > qemu_patch_temp.mk
 define HOST_QEMU_PATCH_MKVENV
 	python3 package/qemu/patch_mkvenv.py $(@D)
 endef
 HOST_QEMU_POST_EXTRACT_HOOKS += HOST_QEMU_PATCH_MKVENV
 
-EOF
+INNER_EOF
     cat buildroot/package/qemu/qemu.mk >> qemu_patch_temp.mk
     mv qemu_patch_temp.mk buildroot/package/qemu/qemu.mk
 fi
