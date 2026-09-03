@@ -5,7 +5,7 @@
 ##############################################################
 
 LDD_VERSION = 8c774926a56a23827407e9a79cfcd7b5388c5976
-LDD_SITE = git@github.com/scaryhound/aeld-assignment-7.git
+LDD_SITE = git@github.com:scaryhound/aeld-assignment-7.git
 LDD_SITE_METHOD = git
 LDD_GIT_SUBMODULES = YES
 
